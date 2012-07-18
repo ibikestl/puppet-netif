@@ -1,4 +1,3 @@
-
 # tap virtual interface
 netif::interface { 'tap0' :
     ifaddr => "172.24.0.14/28" ,
@@ -25,7 +24,7 @@ netif::interface { 'eth1' :
     ],
 }
 
-$ regular ethernet with default route
+# regular ethernet with default route
 netif::interface { 'eth0' :
     ifaddr => '10.50.50.8/28' ,
     routes => [
