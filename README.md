@@ -5,37 +5,37 @@ Puppet module for managing network interfaces and static routes on RHEL/CentOS f
 
 Interfaces are defined via the netif::inferface defined type. Arguments are:
 <p>
->   name:     
->>  Name of the interface. Type is automatically determined by the name.
->   ifaddr:   
->>  IP address of interface 
->   onboot:   
->>  yes/no. Default is yes
->   onparent: 
->>  yes/no. For vlan, pkey, and aliased interfaces. Default is yes.
->   mtu:      
->>  MTU value for the interface. Defaults are:
->>  eth: 1500
->>  ib:  2044
->   routes:   
->>  Array of hashes. Key/values of the hash are:
->>> address: address/bitmask of the target network. The default
->>> route has the address 0.0.0.0/0
->>> gateway: gateway to target network. If this is undefined, the
->>> target network is a different IP subnet on the same physcial
->>> subnet.
->   slaves:   
->   Array of slave interface names for bridge interfaces.
+*   name:     
+**  Name of the interface. Type is automatically determined by the name.
+*   ifaddr:   
+**  IP address of interface 
+*   onboot:   
+**  yes/no. Default is yes
+*   onparent: 
+**  yes/no. For vlan, pkey, and aliased interfaces. Default is yes.
+*   mtu:      
+**  MTU value for the interface. Defaults are:
+**  eth: 1500
+**  ib:  2044
+*   routes:   
+**  Array of hashes. Key/values of the hash are:
+*** address: address/bitmask of the target network. The default
+*** route has the address 0.0.0.0/0
+*** gateway: gateway to target network. If this is undefined, the
+*** target network is a different IP subnet on the same physcial
+*** subnet.
+*   slaves:   
+*   Array of slave interface names for bridge interfaces.
 <p>
 
 Supported interface types:
-> Ethernet
-> Ethernet VLAN
-> Infiniband
-> Infiniband with Partition Keys (pkey)
-> Aliased interfaces
-> Bridge interfaces, including slaves
-> Tap virtual interfaces
+* Ethernet
+* Ethernet VLAN
+* Infiniband
+* Infiniband with Partition Keys (pkey)
+* Aliased interfaces
+* Bridge interfaces, including slaves
+* Tap virtual interfaces
 
 Usage example:
 
@@ -73,7 +73,7 @@ netif::interface { 'eth0.2347' :
 
 br0 with slaves eth2-eth5 with a route to an overlay network:
 
-<code></pre>
+<code><pre>
 netif::interface { 'br0' :
     # address/netmask
     ifaddr => "1.2.5.4/24" ,
