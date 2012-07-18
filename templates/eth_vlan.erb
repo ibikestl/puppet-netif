@@ -1,0 +1,27 @@
+<%
+    # template for VLAN ethernet interface
+    
+    require 'ipaddr'
+    Puppet::Parser::Functions.autoloader.loadall
+    
+    # split out ip and netmask 
+    (ip,bitmask) = ifaddr.split('/',2)
+    
+    # create IP classes
+    ipclass     = IPAddr.new(ip)
+    netclass    = IPAddr.new(ifaddr)
+    dotmask     = netclass.inspect.to_s.split('/',2)[1].sub(/>/,'')
+    macaddress  = scope.to_hash["macaddress_" + name]
+    physdev     = ifname.split('.',2)[0]
+
+-%>
+DEVICE=<%= ifname %>
+PHYSDEV=<%= physdev %>
+VLAN=yes
+BOOTPROTO="static"
+NM_CONTROLLED="no"
+ONBOOT=<%= onboot %>
+IPADDR=<%= ip %>
+NETMASK=<%= dotmask %>
+PREFIX=<%= bitmask %>
+MTU=<%= mtu %>

@@ -1,0 +1,23 @@
+<%
+    # template for slave interface for bridge interface
+    
+    require 'ipaddr'
+    Puppet::Parser::Functions.autoloader.loadall
+    
+    # split out ip and netmask 
+    (ip,bitmask) = ifaddr.split('/',2)
+    
+    # create IP classes
+    ipclass     = IPAddr.new(ip)
+    netclass    = IPAddr.new(ifaddr)
+    dotmask     = netclass.inspect.to_s.split('/',2)[1].sub(/>/,'')
+    macaddress  = scope.to_hash["macaddress_" + name]
+
+-%>
+DEVICE=<%= name %>
+BRIDGE=<%= ifname %>
+BOOTPROTO="none"
+NM_CONTROLLED="no"
+ONBOOT=<%= onboot %>
+HWADDR=<%= macaddress %>
+MTU=<%= mtu %>

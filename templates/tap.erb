@@ -1,0 +1,23 @@
+<%
+    # template for tap virtual interface
+    
+    require 'ipaddr'
+    Puppet::Parser::Functions.autoloader.loadall
+    
+    # split out ip and netmask 
+    (ip,bitmask) = ifaddr.split('/',2)
+    
+    # create IP classes
+    ipclass  = IPAddr.new(ip)
+    netclass = IPAddr.new(ifaddr)
+    dotmask  = netclass.inspect.to_s.split('/',2)[1].sub(/>/,'')
+
+-%>
+DEVICE=<%= ifname %>
+TYPE=Tap
+BOOTPROTO="static"
+NM_CONTROLLED="no"
+ONBOOT=<%= onboot %>
+IPADDR=<%= ip %>
+NETMASK=<%= dotmask %>
+PREFIX=<%= bitmask %>

@@ -1,0 +1,33 @@
+<%
+    # template for interface static route file
+    #
+    require 'ipaddr'
+    Puppet::Parser::Functions.autoloader.loadall
+-%>
+# File managed by Puppet
+# Do not edit by hand, changes will be lost
+<% 
+    # loop through each array. structure defined in route.pp
+    routes.each_with_index do | route, index |
+        (ip,bitmask) = route['address'].split('/',2)
+        
+        # create IP classes
+        ipclass  = IPAddr.new(ip)
+        netclass = IPAddr.new(route['address'])
+        # split out ip and netmask 
+        dotmask  = netclass.inspect.to_s.split('/',2)[1].sub(/>/,'')
+-%>
+<%      # print address and netmask destination -%>
+ADDRESS<%= index %>=<%= ip %>
+NETMASK<%= index %>=<%= dotmask %>
+<%
+        # add gateway if it's there
+        if !(route['gateway'].nil?)
+-%>
+GATEWAY<%= index %>=<%= route['gateway'] %>
+<%      
+        # end gateway test block 
+        end
+    # end route loop
+    end
+-%>
