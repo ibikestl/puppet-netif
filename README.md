@@ -5,30 +5,31 @@ Puppet module for managing network interfaces and static routes on RHEL/CentOS f
 
 Interfaces are defined via the netif::inferface defined type. Arguments are:
 <p>
-*  name:     
->  Name of the interface. Type is automatically determined by the name.
-*  ifaddr:   
->  IP address of interface 
-*  onboot:   
->  yes/no. Default is yes
-*  onparent: 
->  yes/no. For vlan, pkey, and aliased interfaces. Default is yes.
-*   mtu:      
->   MTU value for the interface. Defaults are:
->   eth: 1500
->   ib:  2044
-*   routes:   
->   Array of hashes. Key/values of the hash are:
->   address: address/bitmask of the target network. The default
->   route has the address 0.0.0.0/0
->   gateway: gateway to target network. If this is undefined, the
->   target network is a different IP subnet on the same physcial
->   subnet.
-*   slaves:   
->   Array of slave interface names for bridge interfaces.
+*  name:<br>
+   Name of the interface. Type is automatically determined by the name.<br>
+*  ifaddr:   <br>
+   IP address of interface <br>
+*  onboot:   <br>
+   yes/no. Default is yes<br>
+*  onparent: <br>
+   yes/no. For vlan, pkey, and aliased interfaces. Default is yes.<br>
+*   mtu:      <br>
+    MTU value for the interface. Defaults are:<br>
+    eth: 1500<br>
+    ib:  2044<br>
+*   route<br>
+    Array of hashes. Key/values of the hash are:<br>
+    address: address/bitmask of the target network. The default<br>
+    route has the address 0.0.0.0/0<br>
+    gateway: gateway to target network. If this is undefined, the<br>
+    target network is a different IP subnet on the same physcial<br>
+    subnet.<br>
+*   slave<br>
+    Array of slave interface names for bridge interfaces.<br>
 <p>
 
 Supported interface types:
+
 * Ethernet
 * Ethernet VLAN
 * Infiniband
@@ -37,6 +38,7 @@ Supported interface types:
 * Bridge interfaces, including slaves
 * Tap virtual interfaces
 
+----
 Usage example:
 
 eth0 including default routes:
