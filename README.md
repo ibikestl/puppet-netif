@@ -1,7 +1,8 @@
 puppet-netif
 ============
 
-Puppet module for managing network interfaces and static routes on RHEL/CentOS flavors of Linux
+Puppet module for managing network interfaces and static routes on 
+RHEL/CentOS flavors of Linux. Requires the puppet stdlib module.
 
 Interfaces are defined via the netif::inferface defined type. Arguments are:
 <p>
@@ -19,10 +20,10 @@ Interfaces are defined via the netif::inferface defined type. Arguments are:
     ib:  2044<br>
 *   route<br>
     Array of hashes. Key/values of the hash are:<br>
-    address: address/bitmask of the target network. The default<br>
+    address: address/bitmask of the target network. The default
     route has the address 0.0.0.0/0<br>
-    gateway: gateway to target network. If this is undefined, the<br>
-    target network is a different IP subnet on the same physcial<br>
+    gateway: gateway to target network. If this is undefined, the
+    target network is a different IP subnet on the same physcial
     subnet.<br>
 *   slave<br>
     Array of slave interface names for bridge interfaces.<br>
