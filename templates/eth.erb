@@ -22,5 +22,9 @@ ONBOOT=<%= onboot %>
 IPADDR=<%= ip %>
 NETMASK=<%= dotmask %>
 PREFIX=<%= bitmask %>
+<% unless ifaddr6.empty? -%>
+IPV6ADDR="<%= ifaddr6 %>"
+IPV6INIT="yes"
+<% end -%>
 HWADDR=<%= macaddress %>
 MTU=<%= mtu %>
