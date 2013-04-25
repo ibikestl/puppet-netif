@@ -28,6 +28,7 @@ define netif::interface ( $ifaddr = "", $ifaddr6 = "", $aliases = [], $aliases6 
         /^.*:.*$/ : {
             netif::alias { $name :
                 ifaddr => $ifaddr ,
+                onparent => $onparent ,
             }
         }
         # regular ethernet interface.
