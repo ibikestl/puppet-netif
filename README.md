@@ -5,29 +5,35 @@ Puppet module for managing network interfaces and static routes on
 RHEL/CentOS flavors of Linux. Requires the puppet stdlib module.
 
 Interfaces are defined via the netif::inferface defined type. Arguments are:
-<p>
-*  name:<br>
-   Name of the interface. Type is automatically determined by the name.<br>
-*  ifaddr:   <br>
-   IP address of interface <br>
-*  onboot:   <br>
-   yes/no. Default is yes<br>
-*  onparent: <br>
-   yes/no. For vlan, pkey, and aliased interfaces. Default is yes.<br>
-*   mtu:      <br>
-    MTU value for the interface. Defaults are:<br>
-    eth: 1500<br>
-    ib:  2044<br>
-*   route<br>
-    Array of hashes. Key/values of the hash are:<br>
-    address: address/bitmask of the target network. The default
-    route has the address 0.0.0.0/0<br>
-    gateway: gateway to target network. If this is undefined, the
-    target network is a different IP subnet on the same physcial
-    subnet.<br>
-*   slave<br>
-    Array of slave interface names for bridge interfaces.<br>
-<p>
+
+* name
+    * Name of the interface. Type is automatically determined by the name.
+* ifaddr
+    * IP address of interface.
+* aliases
+    * An array of IPv4 addresses to add as aliases (CIDR notation).
+* ifaddr6
+    * IPv6 address of interface (currently only works on primary interfaces).
+* aliases6
+    * An array of IPv6 addresses to add as aliases.
+* onboot
+    * yes/no. Default is yes.
+* onparent
+    * yes/no. For vlan, pkey, and aliased interfaces. Default is yes.
+*  mtu
+    * MTU value for the interface. Defaults are:
+        * eth: 1500
+        * ib: 2044
+* routes
+    * Array of hashes. Key/values of the hash are:
+        * address: address/bitmask of the target network. The default
+          route has the address 0.0.0.0/0.
+        * gateway: gateway to target network. If this is undefined, the
+          target network is a different IP subnet on the same physcial subnet.
+* routes6 (currently only works on primary interfaces).
+    * Same as `routes`, but for IPv6.
+* slave
+    * Array of slave interface names for bridge interfaces.
 
 Supported interface types:
 
@@ -42,19 +48,29 @@ Supported interface types:
 ----
 Usage example:
 
-eth0 including default routes:
+eth0 including default routes and aliases:
 
 <pre><code>
 netif::interface { 'eth0' :
     # address/netmask
     ifaddr => "1.2.3.4/24" ,
+    aliases => ["1.2.3.5/24", "1.2.3.10/24"] ,
+    ifaddr6 => "abc:123:def:456::9a3/64" ,
+    aliases6 => ["abc:123:def:456::9b7/64", "abc:123:def:456::a48/64"] ,
     routes => [
         {
             # this interface has the default route
             address => '0.0.0.0/0' ,
             gateway => '1.2.3.1' ,
         } ,
-    ]
+    ] ,
+    routes6 => [
+        {
+            # this interface has the default route
+            address => '::/0' ,
+            gateway => 'abc:123:def:456::1' ,
+        } ,
+    ] ,
 }
 </code></pre>
 

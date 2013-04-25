@@ -2,7 +2,7 @@
 # Handle alias device type configuration
 #
 
-define netif::alias ( $ifaddr, $onboot = "yes" )
+define netif::alias ( $ifaddr, $onparent, $onboot = "yes" )
 {   
     $ifname = $name
     # filename

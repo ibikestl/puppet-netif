@@ -2,7 +2,7 @@
 # handle ethernet and VLAN ethernet device type configuration
 #
 
-define netif::eth ($ifaddr = "", $onboot = "yes" , $mtu = "1500")
+define netif::eth ($ifaddr = "", $ifaddr6 = "", $aliases = [], $aliases6 = [], $onboot = "yes" , $mtu = "1500")
 {
     $ifname = $name
     # filename
