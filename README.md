@@ -48,13 +48,15 @@ Supported interface types:
 ----
 Usage example:
 
-eth0 including default routes:
+eth0 including default routes and aliases:
 
 <pre><code>
 netif::interface { 'eth0' :
     # address/netmask
     ifaddr => "1.2.3.4/24" ,
+    aliases => ["1.2.3.5/24", "1.2.3.10/24"] ,
     ifaddr6 => "abc:123:def:456::9a3/64" ,
+    aliases6 => ["abc:123:def:456::9b7/64", "abc:123:def:456::a48/64"] ,
     routes => [
         {
             # this interface has the default route
