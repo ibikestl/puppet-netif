@@ -22,9 +22,33 @@ ONBOOT=<%= onboot %>
 IPADDR=<%= ip %>
 NETMASK=<%= dotmask %>
 PREFIX=<%= bitmask %>
+<%
+    unless aliases.empty?
+        alias_idx = 1
+        aliases.each do |this_alias|
+            this_ip = ''
+            this_mask = ''
+            if this_alias =~ /\//
+                (this_ip, this_mask) = this_alias.split('/', 2)
+            else
+                this_ip = this_alias
+            end
+-%>
+IPADDR<%= alias_idx %>=<%= this_ip %>
+<% unless this_mask.empty? -%>
+PREFIX<%= alias_idx %>=<%= this_mask %>
+<% end -%>
+<%
+            alias_idx += 1
+        end
+    end
+-%>
 <% unless ifaddr6.empty? -%>
 IPV6ADDR="<%= ifaddr6 %>"
 IPV6INIT="yes"
+<% unless aliases6.empty? -%>
+IPV6ADDR_SECONDARIES="<%= aliases6.join(' ') %>"
+<% end -%>
 <% end -%>
 HWADDR=<%= macaddress %>
 MTU=<%= mtu %>

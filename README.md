@@ -10,8 +10,12 @@ Interfaces are defined via the netif::inferface defined type. Arguments are:
     * Name of the interface. Type is automatically determined by the name.
 * ifaddr
     * IP address of interface.
+* aliases
+    * An array of IPv4 addresses to add as aliases (CIDR notation).
 * ifaddr6
     * IPv6 address of interface (currently only works on primary interfaces).
+* aliases6
+    * An array of IPv6 addresses to add as aliases.
 * onboot
     * yes/no. Default is yes.
 * onparent

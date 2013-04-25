@@ -20,7 +20,7 @@ class netif {
 }
 # interface reusable type
 # default MTU is set in the individual interface defined types
-define netif::interface ( $ifaddr = "", $ifaddr6 = "", $slaves = [] , $onboot = "yes", $onparent = "yes" , $mtu = "" , $routes = undef, $routes6 = undef )
+define netif::interface ( $ifaddr = "", $ifaddr6 = "", $aliases = [], $aliases6 = [], $slaves = [] , $onboot = "yes", $onparent = "yes" , $mtu = "" , $routes = undef, $routes6 = undef )
 {
     # switch on interface name
     case $name {
@@ -35,6 +35,8 @@ define netif::interface ( $ifaddr = "", $ifaddr6 = "", $slaves = [] , $onboot = 
             netif::eth { $name :
                 ifaddr => $ifaddr ,
                 ifaddr6 => $ifaddr6 ,
+                aliases => $aliases ,
+                aliases6 => $aliases6 ,
             }
         }
         # vlan ethernet interface.
