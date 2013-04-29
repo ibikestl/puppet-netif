@@ -1,0 +1,11 @@
+<%
+    # template for interface static route file
+    #
+    require 'ipaddr'
+    Puppet::Parser::Functions.autoloader.loadall
+-%>
+# File managed by Puppet
+# Do not edit by hand, changes will be lost
+<% routes.each do | route | -%>
+<%= route['address'] %> via <%= route['gateway'] %> dev <%= interface %>
+<% end -%>
